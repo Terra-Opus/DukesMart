@@ -32,3 +32,9 @@ jobs:
       run: 
         cd target; 
         ls -a
+        
+    - name: Archive plugin jars on GitHub
+      uses: actions/upload-artifact@master
+      with:
+        name: Jars
+        path: jars/
