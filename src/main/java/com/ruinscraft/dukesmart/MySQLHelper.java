@@ -84,7 +84,7 @@ public class MySQLHelper {
 	private final String SQL_CREATE_LEDGER = "INSERT INTO dukesmart_ledgers (player_uuid, income, total_earned) VALUES(?, 0, 0)"
 			  							   + " ON DUPLICATE KEY UPDATE income = income, total_earned = total_earned";
 	
-	private final String SQL_ADD_GOLD_TO_SHOP_LEDGER = "UPDATE dukesmart_ledgers SET income = income + ?, total_earned = total_earned + ?, withdraw_timer = NOW() WHERE player_uuid = ?";
+	private final String SQL_ADD_DIAMOND_TO_SHOP_LEDGER = "UPDATE dukesmart_ledgers SET income = income + ?, total_earned = total_earned + ?, withdraw_timer = NOW() WHERE player_uuid = ?";
 	
 	private final String SQL_GET_PLAYER_INCOME = "SELECT income, withdraw_timer FROM dukesmart_ledgers WHERE player_uuid = ?";
 	
@@ -319,7 +319,7 @@ public class MySQLHelper {
                 
                 // no need to change the ledger income if the price is free
                 if(shop.getPrice() > 0) {
-	                try (PreparedStatement query = connection.prepareStatement(this.SQL_ADD_GOLD_TO_SHOP_LEDGER)){
+	                try (PreparedStatement query = connection.prepareStatement(this.SQL_ADD_DIAMOND_TO_SHOP_LEDGER)){
 	                	query.setInt(1, shop.getPrice());
 	                	query.setInt(2, shop.getPrice());
 	                	query.setString(3, shop.getOwner());

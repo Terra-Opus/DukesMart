@@ -65,13 +65,13 @@ public class ShopListener implements Listener{
 	private final String SHOP_SIGN_OWNER_COLOR  = "" + ChatColor.DARK_BLUE;
 	
 	private final String PLUGIN_NAME = ChatColor.GOLD + "DukesMart";
-	private final String MSG_PLAYER_INCOME_LAST_LOGIN = ChatColor.YELLOW + "Since last login, you made " + ChatColor.GOLD + "$%d" + ChatColor.YELLOW + " from your chest shops." + ChatColor.GOLD + " /shop withdraw";
+	private final String MSG_PLAYER_INCOME_LAST_LOGIN = ChatColor.YELLOW + "Since last login, you made " + ChatColor.GOLD + "%d₸" + ChatColor.YELLOW + " from your chest shops." + ChatColor.GOLD + " /shop withdraw";
 	private final String MSG_SHOP_CREATION_SUCCESS = ChatColor.AQUA + "Shop created! Now place your items to sell in chest below sign.";
 	private final String MSG_SHOP_SECURITY_WARNING = "" + ChatColor.RED + "" + ChatColor.BOLD + "Don't forget to lock your shop chest!";
 
 	private final String MSG_ERROR_SHULKER_CONTAINS_ITEM = "We're sorry, but you cannot sell shulkers containing items.\nTry again with an empty shulker box.";
 	private final String MSG_ERROR_ITEM_CANNOT_EXCEED = "The item %s cannot exceed a stack size of %d. Your sign has been corrected.";
-	private final String MSG_ERROR_NOT_ENOUGH_GOLD = "Sorry, you do not have enough gold to buy.";
+	private final String MSG_ERROR_NOT_ENOUGH_TERRAL = "Sorry, you do not have enough terrals to buy.";
 	private final String MSG_ERROR_NOT_ENOUGH_SPACE = "You do not have enough free space for this purchase.";
 	private final String MSG_ERROR_SHOP_OUT_OF_STOCK = "Sorry, this shop is out of stock. Come back later.";
 	private final String MSG_ERROR_LEDGER_CLEARED = ChatColor.GRAY + "It seems your ledger was cleared in your extended absence...";
@@ -315,7 +315,7 @@ public class ShopListener implements Listener{
 				                			this.plugin.getMySQLHelper().processTransaction(player, selectedShop).thenAccept(result -> {
 					                			if(player.isOnline()) {
 					                				Material itemType = selectedShop.getItem().getType();
-					                				String purchaseConfirmation = ChatColor.AQUA + "Purchased " + selectedShop.getQuantity() + "x " + materialPrettyPrint(itemType) + " for " + ChatColor.GOLD + "$" + selectedShop.getPrice();
+					                				String purchaseConfirmation = ChatColor.AQUA + "Purchased " + selectedShop.getQuantity() + "x " + materialPrettyPrint(itemType) + " for " + ChatColor.GOLD + selectedShop.getPrice() + "₸";
 					                				new ActionBarNotifyTask(player, purchaseConfirmation, 3).runTaskTimer(this.plugin, 0, 20*2);
 
 					                				Player owner = Bukkit.getPlayer(UUID.fromString(selectedShop.getOwner()));
@@ -326,7 +326,7 @@ public class ShopListener implements Listener{
 				                			});
 			                			}
 			                			else {
-			                				sendError(player, MSG_ERROR_NOT_ENOUGH_GOLD);
+			                				sendError(player, MSG_ERROR_NOT_ENOUGH_TERRAL);
 			                			}
 		                			}
 		                			else {
@@ -856,7 +856,7 @@ public class ShopListener implements Listener{
         	shopInfoElements.add(" - " + ChatColor.ITALIC + prettyPrint(enchantmentName) + " " + entry.getValue());
         } 
         shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Quantity: " + ChatColor.WHITE + shop.getQuantity());
-        shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Cost: " + ChatColor.WHITE + shop.getPrice() + " gold");
+        shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Cost: " + ChatColor.WHITE + shop.getPrice() + " Terral");
         shopInfoElements.add("" + ChatColor.GRAY + "------------------------------------");
         shopInfoElements.add("" + ChatColor.YELLOW + "To purchase, right click again.");
 
