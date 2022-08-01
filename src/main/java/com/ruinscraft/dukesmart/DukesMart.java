@@ -13,8 +13,8 @@ public class DukesMart extends JavaPlugin {
 	private NotifyPlayerIncomeTaskController notifyController;
 	private SelectedShopController selectController;
 	
-	public final Material SHOP_CURRENCY_MATERIAL   = Material.GOLD_INGOT;
-	public final XMaterial SHOP_CURRENCY_XMATERIAL = XMaterial.GOLD_INGOT;
+	public final Material SHOP_CURRENCY_MATERIAL   = Material.DIAMOND;
+	public final XMaterial SHOP_CURRENCY_XMATERIAL = XMaterial.DIAMOND;
 
     @Override
     public void onEnable() {
