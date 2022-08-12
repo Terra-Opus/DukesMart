@@ -55,7 +55,7 @@ public class ShopCommandExecutor implements CommandExecutor, TabCompleter{
 		tutorialText.add(ChatColor.GOLD + "--- How to create a chest shop ---");
 		tutorialText.add(ChatColor.AQUA + " 1. Place a sign on or above a chest.");
 		tutorialText.add(ChatColor.AQUA + " 2. On the first line, put \"[Buy]\" (case-insensitive)");
-		tutorialText.add(ChatColor.AQUA + " 3. On the third line, put \"x for $y\", where x is the quantity of the item, and y is the price in Terrals.");
+		tutorialText.add(ChatColor.AQUA + " 3. On the third line, put \"x for $y\", where x is the quantity of the item, and y is the price in gold ingots.");
 		tutorialText.add(ChatColor.AQUA + " 4. Finally, right-click the sign with the item to sell in your hand.");
 		tutorialText.add(ChatColor.AQUA + " 5. Place all items for sale in the chest.");
 		

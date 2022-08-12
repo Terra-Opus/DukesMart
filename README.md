@@ -1,5 +1,5 @@
 # DukesMart
-Chest shop plugin without Vault implementation; item-based (diamond)
+Chest shop plugin without Vault implementation; item-based
 
 ## Features
 1. Easy to use and no cryptic IDs needed unlike other plugins
