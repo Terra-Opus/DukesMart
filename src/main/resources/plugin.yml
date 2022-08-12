@@ -2,7 +2,7 @@ name: DukesMart
 main: com.ruinscraft.dukesmart.DukesMart
 version: 1.0
 author: Ruinscraft LLC
-api-version: 1.16
+api-version: 1.18
 commands:
   shop:
     description: Shows all commands for DukesMart
