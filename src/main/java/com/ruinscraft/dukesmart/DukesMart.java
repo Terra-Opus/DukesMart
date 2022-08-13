@@ -25,6 +25,8 @@ public class DukesMart extends JavaPlugin {
     @Override
     public void onEnable() {
     	
+		saveDefaultConfig();
+
     	// check config.yml for database credentials
     	if(!config.contains("mysql.host") || !config.contains("mysql.port") || !config.contains("mysql.database")
     	   || !config.contains("mysql.username") || !config.contains("mysql.password") || !config.contains("shop.currency-item") 
