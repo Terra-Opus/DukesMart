@@ -29,7 +29,6 @@ public class DukesMart extends JavaPlugin {
     	if(!config.contains("mysql.host") || !config.contains("mysql.port") || !config.contains("mysql.database")
     	   || !config.contains("mysql.username") || !config.contains("mysql.password") || !config.contains("shop.currency-item") 
 		   || !config.contains("shop.currency-symbol") || !config.contains("shop.currency-name-s") || !config.contains("shop.currency-name-p")) {
-    		saveDefaultConfig();
 
     		getLogger().info("Failed to find database and currency information in config.yml!");
     		getLogger().info("Adding default values to config.yml");
@@ -46,7 +45,6 @@ public class DukesMart extends JavaPlugin {
 			config.addDefault("shop.currency-name-p", "gold");
     		
     		config.options().copyDefaults(true);
-			saveDefaultConfig();
             saveConfig();
     		
     	}
