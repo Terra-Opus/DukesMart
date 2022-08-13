@@ -970,7 +970,7 @@ public class ShopListener implements Listener{
 	    	if(!tokens[2].isEmpty()) {
 	    		String price = tokens[2];
 	    		if(price.length() > 1) {
-		    		if(price.charAt(0) != plugin.CurrencySymbol) {
+		    		if(price.charAt(0) != '$') {
 		    			return false;
 		    		}
 		    		
