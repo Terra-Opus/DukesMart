@@ -1,0 +1,20 @@
+mysql:
+  host: localhost
+  port: 3306
+  database: DukesMart-DB
+  username: DukesMart-USER
+  password: DukesMart-PASSWORD
+
+shop:
+  #Set the item for the currency
+  currency-item: GOLD_INGOT
+  #currency name in singular
+  currency-name-s: gold ingot
+  #currency name in plural
+  currency-name-p: gold ingots
+  #Symbol for the currency
+  currency-symbol: G
+
+player:
+  #How long till the player's ledger is deleted
+  ledger-delete: 45 # USELESS AT THE MOMENT

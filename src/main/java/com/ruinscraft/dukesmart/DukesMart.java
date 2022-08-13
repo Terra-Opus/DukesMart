@@ -12,9 +12,16 @@ public class DukesMart extends JavaPlugin {
 	private ShopListener sl;
 	private NotifyPlayerIncomeTaskController notifyController;
 	private SelectedShopController selectController;
+
+	private String currencyItem = getConfig().getString("shop.currency-item");
+	public String currencySymbol = getConfig().getString("shop.currency-symbol");
+	public String currencyNameS = getConfig().getString("shop.currency-name-s");
+	public String currencyNameP = getConfig().getString("shop.currency-name-p");
+	private int ledgerDelete = getConfig().getInt("player.ledger-delete");
+
 	
-	public final Material SHOP_CURRENCY_MATERIAL   = Material.GOLD_INGOT;
-	public final XMaterial SHOP_CURRENCY_XMATERIAL = XMaterial.GOLD_INGOT;
+	public final Material SHOP_CURRENCY_MATERIAL   = Material.valueOf(currencyItem);
+	public final XMaterial SHOP_CURRENCY_XMATERIAL = XMaterial.valueOf(currencyItem);
 
     @Override
     public void onEnable() {
@@ -28,9 +35,9 @@ public class DukesMart extends JavaPlugin {
     		
     		config.addDefault("mysql.host", "localhost");
     		config.addDefault("mysql.port", 3306);
-    		config.addDefault("mysql.database", "mcatlas");
-    		config.addDefault("mysql.username", "mcatlasdev");
-    		config.addDefault("mysql.password", "password123");
+    		config.addDefault("mysql.database", "DukesMart-DB");
+    		config.addDefault("mysql.username", "DukesMart-USER");
+    		config.addDefault("mysql.password", "DukesMart-PASSWORD");
     		
     		config.options().copyDefaults(true);
             saveConfig();
@@ -39,6 +46,15 @@ public class DukesMart extends JavaPlugin {
     	
     	setupMySQLHelper();
     	
+		if(!config.contains("shop")) {
+			config.addDefault("shop.currency-item", "GOLD_INGOT");
+			config.addDefault("shop.currency-symbol", "G");
+			config.addDefault("shop.currency-name-s", "gold ingot");
+			config.addDefault("shop.currency-name-p", "gold ingots");
+			config.options().copyDefaults(true);
+			saveConfig();
+		}
+
     	this.sl = new ShopListener(this);
     	this.notifyController = new NotifyPlayerIncomeTaskController(this);
     	this.selectController = new SelectedShopController();

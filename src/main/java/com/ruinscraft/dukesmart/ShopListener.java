@@ -65,13 +65,13 @@ public class ShopListener implements Listener{
 	private final String SHOP_SIGN_OWNER_COLOR  = "" + ChatColor.DARK_BLUE;
 	
 	private final String PLUGIN_NAME = ChatColor.GOLD + "DukesMart";
-	private final String MSG_PLAYER_INCOME_LAST_LOGIN = ChatColor.YELLOW + "Since last login, you made " + ChatColor.GOLD + "$%d" + ChatColor.YELLOW + " from your chest shops." + ChatColor.GOLD + " /shop withdraw";
+	private final String MSG_PLAYER_INCOME_LAST_LOGIN = ChatColor.YELLOW + "Since last login, you made " + ChatColor.GOLD + "%s%d" + ChatColor.YELLOW + " from your chest shops." + ChatColor.GOLD + " /shop withdraw";
 	private final String MSG_SHOP_CREATION_SUCCESS = ChatColor.AQUA + "Shop created! Now place your items to sell in chest below sign.";
 	private final String MSG_SHOP_SECURITY_WARNING = "" + ChatColor.RED + "" + ChatColor.BOLD + "Don't forget to lock your shop chest!";
 
 	private final String MSG_ERROR_SHULKER_CONTAINS_ITEM = "We're sorry, but you cannot sell shulkers containing items.\nTry again with an empty shulker box.";
 	private final String MSG_ERROR_ITEM_CANNOT_EXCEED = "The item %s cannot exceed a stack size of %d. Your sign has been corrected.";
-	private final String MSG_ERROR_NOT_ENOUGH_GOLD = "Sorry, you do not have enough gold to buy.";
+	private final String MSG_ERROR_NOT_ENOUGH_GOLD = "Sorry, you do not have enough Terrals to buy.";
 	private final String MSG_ERROR_NOT_ENOUGH_SPACE = "You do not have enough free space for this purchase.";
 	private final String MSG_ERROR_SHOP_OUT_OF_STOCK = "Sorry, this shop is out of stock. Come back later.";
 	private final String MSG_ERROR_LEDGER_CLEARED = ChatColor.GRAY + "It seems your ledger was cleared in your extended absence...";
@@ -103,7 +103,7 @@ public class ShopListener implements Listener{
         	else if(player.isOnline() && result.getIncome() > 0) {	
     			if(result.getDate() != null) {
     				if(!result.dateIsExpired()) {
-    					player.sendMessage(String.format(MSG_PLAYER_INCOME_LAST_LOGIN, result.getIncome()));
+    					player.sendMessage(String.format(MSG_PLAYER_INCOME_LAST_LOGIN, plugin.currencySymbol ,result.getIncome()));
             			
 			            if(result.daysLeftBeforeExpire() > 0 && result.daysLeftBeforeExpire() <= 10) {
 				            player.sendMessage(String.format(MSG_WARNING_INCOME_EXPIRES_SOON, result.daysLeftBeforeExpire()));
@@ -315,7 +315,7 @@ public class ShopListener implements Listener{
 				                			this.plugin.getMySQLHelper().processTransaction(player, selectedShop).thenAccept(result -> {
 					                			if(player.isOnline()) {
 					                				Material itemType = selectedShop.getItem().getType();
-					                				String purchaseConfirmation = ChatColor.AQUA + "Purchased " + selectedShop.getQuantity() + "x " + materialPrettyPrint(itemType) + " for " + ChatColor.GOLD + "$" + selectedShop.getPrice();
+					                				String purchaseConfirmation = ChatColor.AQUA + "Purchased " + selectedShop.getQuantity() + "x " + materialPrettyPrint(itemType) + " for " + ChatColor.GOLD + selectedShop.getPrice() + plugin.currencySymbol;
 					                				new ActionBarNotifyTask(player, purchaseConfirmation, 3).runTaskTimer(this.plugin, 0, 20*2);
 
 					                				Player owner = Bukkit.getPlayer(UUID.fromString(selectedShop.getOwner()));
@@ -856,7 +856,7 @@ public class ShopListener implements Listener{
         	shopInfoElements.add(" - " + ChatColor.ITALIC + prettyPrint(enchantmentName) + " " + entry.getValue());
         } 
         shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Quantity: " + ChatColor.WHITE + shop.getQuantity());
-        shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Cost: " + ChatColor.WHITE + shop.getPrice() + " gold");
+        shopInfoElements.add("" + ChatColor.RED + ChatColor.BOLD + "Cost: " + ChatColor.WHITE + shop.getPrice() + plugin.currencyNameS);
         shopInfoElements.add("" + ChatColor.GRAY + "------------------------------------");
         shopInfoElements.add("" + ChatColor.YELLOW + "To purchase, right click again.");
 
@@ -937,7 +937,7 @@ public class ShopListener implements Listener{
      * Validates a shop sign's price tag to make
      * sure a player entered the format correctly.
      * 
-     * Format is {quantity} " for " ${price}
+     * Format is {quantity} " for " {price}CurrencySymbol
      * 
      * @param line String to validate (should be 3rd line)
      * @return True if valid, False if not
@@ -966,11 +966,11 @@ public class ShopListener implements Listener{
 	    	}
 	    	
 	    	// finally, check the format of the price tag
-	    	// first char should be '$', rest should be digit
+	    	// first char should be the currency symbol, rest should be digit
 	    	if(!tokens[2].isEmpty()) {
 	    		String price = tokens[2];
 	    		if(price.length() > 1) {
-		    		if(price.charAt(0) != '$') {
+		    		if(price.charAt(0) != plugin.CurrencySymbol) {
 		    			return false;
 		    		}
 		    		
