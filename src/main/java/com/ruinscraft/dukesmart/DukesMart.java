@@ -17,7 +17,6 @@ public class DukesMart extends JavaPlugin {
 	public String currencySymbol = getConfig().getString("shop.currency-symbol");
 	public String currencyNameS = getConfig().getString("shop.currency-name-s");
 	public String currencyNameP = getConfig().getString("shop.currency-name-p");
-	private int ledgerDelete = getConfig().getInt("player.ledger-delete");
 
 	
 	public final Material SHOP_CURRENCY_MATERIAL   = Material.valueOf(currencyItem);
