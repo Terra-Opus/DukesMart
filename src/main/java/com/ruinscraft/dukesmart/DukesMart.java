@@ -1,10 +1,10 @@
 // current: v1.16
 package com.ruinscraft.dukesmart;
 
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class DukesMart extends JavaPlugin {
 	private FileConfiguration config = getConfig();
@@ -27,9 +27,10 @@ public class DukesMart extends JavaPlugin {
     	
     	// check config.yml for database credentials
     	if(!config.contains("mysql.host") || !config.contains("mysql.port") || !config.contains("mysql.database")
-    	   || !config.contains("mysql.username") || !config.contains("mysql.password")) {
+    	   || !config.contains("mysql.username") || !config.contains("mysql.password") || !config.contains("shop.currency-item") 
+		   || !config.contains("shop.currency-symbol") || !config.contains("shop.currency-name-s") || !config.contains("shop.currency-name-p")) {
     		
-    		getLogger().info("Failed to find database information in config.yml!");
+    		getLogger().info("Failed to find database and currency information in config.yml!");
     		getLogger().info("Adding default values to config.yml");
     		
     		config.addDefault("mysql.host", "localhost");
@@ -37,6 +38,11 @@ public class DukesMart extends JavaPlugin {
     		config.addDefault("mysql.database", "DukesMart-DB");
     		config.addDefault("mysql.username", "DukesMart-USER");
     		config.addDefault("mysql.password", "DukesMart-PASSWORD");
+
+			config.addDefault("shop.currency-item", "GOLD_INGOT");
+			config.addDefault("shop.currency-symbol", "$");
+			config.addDefault("shop.currency-name-s", "gold");
+			config.addDefault("shop.currency-name-p", "gold");
     		
     		config.options().copyDefaults(true);
             saveConfig();
@@ -44,15 +50,6 @@ public class DukesMart extends JavaPlugin {
     	}
     	
     	setupMySQLHelper();
-    	
-		if(!config.contains("shop")) {
-			config.addDefault("shop.currency-item", "GOLD_INGOT");
-			config.addDefault("shop.currency-symbol", "G");
-			config.addDefault("shop.currency-name-s", "gold ingot");
-			config.addDefault("shop.currency-name-p", "gold ingots");
-			config.options().copyDefaults(true);
-			saveConfig();
-		}
 
     	this.sl = new ShopListener(this);
     	this.notifyController = new NotifyPlayerIncomeTaskController(this);
